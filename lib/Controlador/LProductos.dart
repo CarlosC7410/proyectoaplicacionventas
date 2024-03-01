@@ -10,9 +10,11 @@ class VerProductosController {
       listaProductos.add(Producto(
         codigo: producto['codigo'],
         nombre: producto['nombre'],
-        cantidad: int.fromEnvironment(producto['cantidad']),
+        cantidad: producto['cantidad'],
+        //cantidad: int.fromEnvironment(producto['cantidad']),
         categoria: producto['categoria'],
-        precio: double.parse(producto['precio']),
+        precio: producto['precio'],
+        //precio: double.parse(producto['precio']),
       ));
     }
     return listaProductos;

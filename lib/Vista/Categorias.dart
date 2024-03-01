@@ -1,73 +1,73 @@
-import 'package:proyectoaplicacionventas/Controlador/ACategorias.dart';
-import 'package:proyectoaplicacionventas/Modelo/Categoria.dart';
+import 'package:proyectoaplicacionventas/Controlador/LCategorias.dart';
+import 'package:proyectoaplicacionventas/Vista/CCategorias.dart';
+import 'package:proyectoaplicacionventas/Vista/ECategorias.dart';
 import 'package:flutter/material.dart';
 
-class AgregarCategoriaVista extends StatelessWidget {
-  final List<Categoria> categorias;
-  final AgregarCategoriaController controller = AgregarCategoriaController();
-  final TextEditingController codigoController = TextEditingController();
-  final TextEditingController nombreController = TextEditingController();
-  final TextEditingController descripcionController = TextEditingController();
-  AgregarCategoriaVista({super.key, required this.categorias});
+class CategoriasVista extends StatefulWidget {
+  const CategoriasVista({super.key});
+
+  @override
+  State<CategoriasVista> createState() => _CategoriasVistaState();
+}
+
+class _CategoriasVistaState extends State<CategoriasVista> {
+  final CategoriasController categoriasController = CategoriasController();
 
   @override
   Widget build(BuildContext context) {
+    var categorias = categoriasController.obtenerCategorias();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Agregar Categoria'),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 20,
+        appBar: AppBar(
+          title: const Text('Categorías'),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Codigo'),
-            TextField(
-              controller: codigoController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
+        body: Center(
+          child: Column(children: [
+            for (int i = 0; i < categorias.length; i++)
+              ListTile(
+                title: Text(categorias[i].nombre),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.edit,
+                        color: Colors.teal.shade300,
+                      ),
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return EditarCategoria(
+                            categoria: categorias[i].nombre,
+                            index: i,
+                          );
+                        })).whenComplete(() => setState(() {}));
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.red.shade300,
+                      ),
+                      onPressed: () {
+                        categoriasController.eliminarCategoria(i);
+                        setState(() {});
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text('Nombre'),
-            TextField(
-              controller: nombreController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text('Descripcion'),
-            TextField(
-              controller: descripcionController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  String codigo = codigoController.text;
-                  String nombre = nombreController.text;
-                  String descripcion = descripcionController.text;
-                  controller.agregarCategoria(codigo, nombre, descripcion);
-                },
-                child: const Text('Guardar'),
-              ),
-            ),
-          ],
+          ]),
         ),
-      ),
-    );
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CrearCategoriaVista(),
+              ),
+            ).whenComplete(() => setState(() {}));
+          },
+          child: const Icon(Icons.add),
+        ));
   }
 }

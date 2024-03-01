@@ -1,9 +1,8 @@
-import 'package:proyectoaplicacionventas/Modelo/Categoria.dart';
 import 'package:proyectoaplicacionventas/Modelo/Producto.dart';
 import 'package:proyectoaplicacionventas/Vista/Categorias.dart';
 import 'package:proyectoaplicacionventas/Vista/Productos.dart';
 import 'package:proyectoaplicacionventas/Vista/Cproductos.dart';
-import 'package:proyectoaplicacionventas/Vista/Ccategorias.dart';
+import 'package:proyectoaplicacionventas/Vista/CCategorias.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -11,7 +10,6 @@ class MenuVista extends StatelessWidget {
   MenuVista({Key? key}) : super(key: key);
 
   final List<Producto> productos = [];
-  final List<Categoria> categorias = [];
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +59,7 @@ class MenuVista extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return AgregarCategoriaVista(categorias: []);
+                        return CrearCategoriaVista();
                       },
                     ),
                   );
@@ -74,7 +72,7 @@ class MenuVista extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return VerCategoriasVista();
+                        return CategoriasVista();
                       },
                     ),
                   );

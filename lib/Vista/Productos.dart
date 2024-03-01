@@ -11,7 +11,7 @@ class AgregarProductoVista extends StatelessWidget {
   final TextEditingController nombreController = TextEditingController();
   final TextEditingController cantidadController = TextEditingController();
   final TextEditingController precioController = TextEditingController();
-  final VerCategoriasController categoriasController = VerCategoriasController(); // Controlador de categorías
+  final CategoriasController  categoriasController = CategoriasController (); // Controlador de categorías
   AgregarProductoVista({Key? key, required this.productos}) : super(key: key);
 
   @override

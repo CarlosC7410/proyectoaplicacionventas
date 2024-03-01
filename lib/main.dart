@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:proyectoaplicacionventas/Vista/Sesion.dart';
 
-void main() {
+void main() async{
+  await Hive.initFlutter();
+  await Hive.openBox('categorias');
+  await Hive.openBox('productos');
   runApp(const MyApp());
 }
 
